@@ -5,9 +5,17 @@ const KEY = process.env.APP_KEY
 
 // register & create a Researcher
 // Steps: module export, (try create, user token, response), catch error response
-module.exports.loginResearcher = async (req,res) =>{
+module.exports.registerResearcher = async (req,res) =>{
+    const {userName, discipline, researcherStatus, email, password, profileImage} = req.body;
     try{
-        const newResearcher = await Researcher.create(req.body)
+        const newResearcher = await Researcher.create({
+            userName,
+            discipline: JSON.parse(discipline),
+            researcherStatus: JSON.parse(researcherStatus),
+            email,
+            password,
+            profileImage: req.file.buffer
+        })
         const userToken = jwt.sign({_id: newResearcher._id, email: newResearcher.email}, KEY);
         res.status(201).cookie('userToken', userToken,{httpOnly:true}).json({successMessage: 'Researcher created and registered'});
     }catch(err){

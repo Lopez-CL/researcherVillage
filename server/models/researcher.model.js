@@ -12,7 +12,7 @@ const ResearcherSchema = mongoose.Schema({
         type: [String],
         required: [true, 'We use this to help build connections with other researchers and influence how our AI system works with you'],
     },
-    researchStatus: {
+    researcherStatus: {
         type: [String],
         enum: ['undergraduate', 'postdoc','grad student','instructor/professor','research specialist'],
         required: [true, "We use this to help build connections with other researchers and influence how our AI system works with you"],
@@ -29,14 +29,14 @@ const ResearcherSchema = mongoose.Schema({
         required: [true,"Please provide a password"],
         minlength: [8, 'your password must be 8 characters or longer'],
     },
-    ProfileImage:{
+    profileImage:{
         type: Buffer
     },
     createdAt: Date,
     updatedAt: Date,
 }, {timestamps: true})
 
-// save modeled function
+// save modeled function/middleware
 
 ResearcherSchema.pre('save', async function(next){
     try{
