@@ -1,7 +1,7 @@
 const researcherController = require('../controllers/researcher.controller');
 const multer = require('multer');
 const path = require('path');
-// multer configuration which is middleware that process multipart/form data. It must store file in memory as buffer, indicate filesize limits, and verify mimietype and extname/file path, and finally indicate whether to accept the file or not
+// multer configuration which is middleware that process multipart/form data. It must store file in memory as buffer, indicate filesize limits, and verify mimietype and extname/file path, and finally indicate whether to accept the file or not via a condition
 const verifyUpload = multer({
     storage: multer.memoryStorage(),
     limits: {fileSize: 5*1024*1024},
