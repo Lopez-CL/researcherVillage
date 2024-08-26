@@ -1,4 +1,3 @@
-const { error } = require('console');
 const researcherController = require('../controllers/researcher.controller');
 const multer = require('multer');
 const path = require('path');
