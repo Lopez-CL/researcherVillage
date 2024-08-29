@@ -6,7 +6,7 @@ const KEY = process.env.APP_KEY
 // register & create a Researcher
 // Steps: module export, (try create, user token, response), catch error response
 module.exports.registerResearcher = async (req,res) =>{
-    const {userName, discipline, researcherStatus, email, password, profileImage} = req.body;
+    const {userName, discipline, researcherStatus, email, password} = req.body;
     try{
         const newResearcher = await Researcher.create({
             userName,
@@ -34,16 +34,22 @@ module.exports.loginResearcher = async (req, res) =>{
         try{
             const pwConfirm = await bcrypt.compare(req.body.password, foundResearcher.password)
             if(!pwConfirm){
-                res.status(400).json({errMessage: 'Invalid Email or Password'})
-            }else{
-                const userToken = jwt.sign({_id: foundResearcher._id, email: foundResearcher.email}, KEY);
-                res.status(201).cookie('userToken', userToken,{httpOnly:true}).json({successMessage:'Logged Researcher in'})
+                return res.status(400).json({errMessage: 'Invalid Email or Password'})
             }
+            const userToken = jwt.sign({_id: foundResearcher._id, email: foundResearcher.email}, KEY);
+            let researcherObj = foundResearcher.toObject();
+            if(researcherObj.profileImage && researcherObj.profileImage.data){
+                researcherObj.profileImage = Buffer.from(researcherObj.profileImage.data).toString('base64');
+            }
+            return res.status(201).cookie('userToken', userToken,{httpOnly:true}).json({successMessage:'Logged Researcher in',
+                researcherData: researcherObj
+            })
         }catch(err){
             res.status(400).json({err: 'Invalid Email or Password'})
         }
     }
 }
+
 // logout (clear cookie send message)
 
 module.exports.logoutResearcher = (req,res)=>{
