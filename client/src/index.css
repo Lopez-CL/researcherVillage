@@ -1,13 +1,66 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+}
+@font-face{
+  font-family: 'Esteban';
+  src: url('./fonts/Esteban-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root{
+  --Esteban: 'Esteban', sans-serif; 
+  --Plum: #824C71;
+  --Mint-Green: #8FD694;
+  --Teal: #366B69;
+  --Peachy: #FFB4A2;
+  --Accent-Green: #B6D094;
+  --Light-Mint-Grey: #ECF6EB;
+  --Med-Mint-Grey: #CADBC8;
+  --Dark-Mint-Grey: #98A697;
+  --Font-Size: clamp(1rem, 0.4rem + 0.8svw, 1.2rem);
+}
+
+*, *::before, *::after{
+  box-sizing: border-box;
+}
+
+/* @layer global, layout, modules, utilities;  */
+
+@layer global{
+  *, *::before, *::after{
+      box-sizing: border-box;
+  }
+  body{
+      padding: 0;
+      margin: 0;
+  }
+  *{
+      color: var(--Teal);
+  }
+  h1{
+      font: 400 normal 60px/normal var(--Esteban), sans-serif;
+  }
+  h2{
+      font: 400 normal 48px/normal 'Unna', sans-serif;
+  }
+  h3{
+      font: italic 400 normal 36px/normal 'Unna', sans-serif;
+  }
+  h4{
+      font: 400 normal 24px/normal 'Unna', sans-serif;
+  }
+  p{
+      font: 400 normal var(--Font-Size)/normal var(--Esteban), sans-serif;
+  }
+  a:link{
+      color: var(--Plum);
+      text-decoration: underline;
+      &:hover{
+          text-decoration: none;
+      }
+  }
+  a:visited{
+      color: var(--Teal);
+  }
 }

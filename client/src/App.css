@@ -1,38 +1,39 @@
-.App {
-  text-align: center;
+@font-face{
+    font-family: 'Esteban';
+    src: url('./fonts/Esteban-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+:root{
+    --Esteban: 'Esteban', sans-serif; 
+    --Plum: #824C71;
+    --Mint-Green: #8FD694;
+    --Teal: #366B69;
+    --Peachy: #FFB4A2;
+    --Accent-Green: #B6D094;
+    --Light-Mint-Grey: #ECF6EB;
+    --Med-Mint-Grey: #CADBC8;
+    --Dark-Mint-Grey: #98A697;
+    --Font-Size: clamp(1rem, 0.4rem + 0.8svw, 1.2rem);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+*, *::before, *::after{
+    box-sizing: border-box;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+/* @layer global, layout, modules, utilities;  */
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+@layer layout {
+    @layer header{
+        header{
+            text-align: right;
+        }
+    }
+    @layer login-registration{
+        .login-registration{
+            display: grid;
+            grid-template-columns: 2fr, 1fr;
+        }
+    }
 }
