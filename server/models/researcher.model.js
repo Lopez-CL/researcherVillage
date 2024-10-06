@@ -3,21 +3,20 @@ const bcrypt = require('bcrypt');
 
 const ResearcherSchema = mongoose.Schema({
     // username, discipline, researchStatus, email, password, profile image
-    userName: {
+    firstName: {
         type: String,
         required: [true, 'a username is required'],
         minlength: [2, "Your username must be two characters or more"]
     },
-    discipline:{
-        type: [String],
-        required: [true, 'We use this to help build connections with other researchers and influence how our AI system works with you'],
+    lastName: {
+        type: String,
+        required: [true, 'a username is required'],
+        minlength: [2, "Your username must be two characters or more"]
     },
-    researcherStatus: {
-        type: [String],
-        enum: ['undergraduate', 'postdoc','grad student','instructor/professor','research specialist'],
-        required: [true, "We use this to help build connections with other researchers and influence how our AI system works with you"],
-        minItem: [1, 'You must select at least one status'],
-    },
+    userName: {
+        type: String,
+        minlength: [2, "Your username must be two characters or more"]
+    },    
     email:{
         type:String,
         required: [true, "An email is required to sign up"],
@@ -29,6 +28,17 @@ const ResearcherSchema = mongoose.Schema({
         required: [true,"Please provide a password"],
         minlength: [8, 'your password must be 8 characters or longer'],
     },
+    discipline:{
+        type: [String],
+        required: [true, 'We use this to help build connections with other researchers and influence how our AI system works with you'],
+    },
+    researcherStatus: {
+        type: [String],
+        enum: ['undergraduate', 'postdoc','grad student','instructor/professor','research specialist'],
+        required: [true, "We use this to help build connections with other researchers and influence how our AI system works with you"],
+        minItem: [1, 'You must select at least one status'],
+    },
+
     profileImage:{
         type: Buffer
     },
