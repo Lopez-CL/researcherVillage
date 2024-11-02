@@ -3,29 +3,31 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const KEY = process.env.APP_KEY
 
-// register & create a Researcher
-// Steps: module export, (try create, user token, response), catch error response
-module.exports.registerResearcher = async (req,res) =>{
-    const {firstName, lastName, userName, email, password, discipline, researcherStatus} = req.body;
+/*// register & create a Researcher 
+    Using the mongoose schema, controller creates a new researcher document, generates a usertoken authenticate and authorize user, and passes json web token and a user objet with a stringified buffer data, so that client can dynamically build personalized UI.
+*/
+module.exports.registerResearcher = async(req, res) =>{
+    const {firstName, lastName, userName, email, password, discipline, researcherStatus} = req.body
     try{
         const newResearcher = await Researcher.create({
             firstName,
             lastName,
-            userName,            
+            userName,
             email,
             password,
             discipline: JSON.parse(discipline),
             researcherStatus: JSON.parse(researcherStatus),
-
-            profileImage: req.file.buffer
-        })
-        const userToken = jwt.sign({_id: newResearcher._id, email: newResearcher.email}, KEY);
-        res.status(201).cookie('userToken', userToken,{httpOnly:true}).json({successMessage: 'Researcher created and registered'});
+            profileImage: req.file.buffer})
+            const userToken = jwt.sign({_id: newResearcher._id, email: newResearcher.email}, KEY);
+            let researchObj = newResearcher.toObject();
+            if(researchObj.profileImage && researchObj.profileImage.data){
+                researchObj.profileImage = Buffer.from(newResearcher.profileImage.data).toString('base64');
+            }
+            return res.status(201).cookie('userToken', userToken, {httpOnly:true}).json({successMessage:"Researcher successfully created and registered", researcherData: researchObj})
     }catch(err){
-        res.status(400).json({err: 'Issue with registration'})
+        res.status(400).json({err:"Server Error occurred when registering researcher"})
     }
 }
-
 // Authenticate/Validate on Login
 // Steps: module export, ( find, if not found(err res)else try(compare pw, user token, response)), catch error response
 

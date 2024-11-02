@@ -50,26 +50,27 @@ const ResearcherSchema = mongoose.Schema({
 
 ResearcherSchema.pre('save', async function(next){
     try{
-        const hashedPw = await bcrypt.hash(this.password, 12);
-        this.password = hashedPw;
+        const hashedPW = await bcrypt.hash(this.password,12);
+        this.password = hashedPW;
     }catch(err){
-        console.log(err, 'error caught in back-end during save')
+        console.log(err,"Issue with registration credentials");
     }
-    next()
+    next();
 })
 
 // virtual fields
 ResearcherSchema.virtual('confirmPassword')
-    .get(() =>(this._confirmPassword))
+    .get(() => this._confirmPassword)
     .set(value => this._confirmPassword = value)
+
 
 // Middleware
 ResearcherSchema.pre('validate', function(next){
-    if(this.password !== this._confirmPassword){
-        this.invalidate('confirmPassword', 'Passwords must match')
-    }
+    if(this._confirmPassword !== this.password){
+            this.invalidate("Passwords do not match: Back-End Error")
+        }
     next();
-})
+    })
 
 
 module.exports = mongoose.model("Researcher", ResearcherSchema);
