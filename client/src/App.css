@@ -1,39 +1,43 @@
-@font-face{
-    font-family: 'Esteban';
-    src: url('./fonts/Esteban-Regular.ttf');
-    font-weight: normal;
-    font-style: normal;
+:root {
+    /* COLOR THEME */
+    --primary-green: #084534;
+    --accent-green: #5DB527;
+    --accent-teal: #0F8060;
+    --accent-pink: #FCA894;
+    --accent-yellow: #FCC737;
+    --primary-sand: #F0EDE4;
+    --reg-font: "NeuePlak", 400, sans-serif;
+    --semi-bold-font: "NeuePlak", 600, sans-serif;
+    --reg-font: 400 16px "NeuePlak", sans-serif;
+    --semi-bold-font: 600 16px "NeuePlak", sans-serif;
+    --heading-one-font: 400 64px "NeuePlak", sans-serif;
+    --heading-two-font: 700 32px "NeuePlak", sans-serif;
+    --heading-three-font: 400 16px "NeuePlak", sans-serif;
+    --Default-FontSz: clamp(1rem, 0.4rem + 0.8svw, 1.2rem);
+
 }
 
-:root{
-    --Esteban: 'Esteban', sans-serif; 
-    --Plum: #824C71;
-    --Mint-Green: #8FD694;
-    --Teal: #366B69;
-    --Peachy: #FFB4A2;
-    --Accent-Green: #B6D094;
-    --Light-Mint-Grey: #ECF6EB;
-    --Med-Mint-Grey: #CADBC8;
-    --Dark-Mint-Grey: #98A697;
-    --Font-Size: clamp(1rem, 0.4rem + 0.8svw, 1.2rem);
-}
-
-*, *::before, *::after{
-    box-sizing: border-box;
-}
-
-/* @layer global, layout, modules, utilities;  */
-
-@layer layout {
-    @layer header{
-        header{
-            text-align: right;
+@layer modules{
+    .button{
+        border: 1px solid var(--primary-green);
+        background-color: var(--primary-green);
+        font: var(--semi-bold-font);
+        cursor: pointer;
+        color: #fff;
+        padding: 12px 26px;
+        border-radius: 36px;
+        
+        &:hover{
+            background-color: transparent;
+            color: var(--primary-green);
         }
     }
-    @layer login-registration{
-        .login-registration{
-            display: grid;
-            grid-template-columns: 2fr, 1fr;
+    .button--transparent{
+        background-color: transparent;
+        color: var(--primary-green);
+        &:hover{
+            background-color: var(--primary-green);
+            color: #fff;
         }
     }
 }

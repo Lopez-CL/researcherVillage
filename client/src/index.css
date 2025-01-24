@@ -1,66 +1,162 @@
-body {
-  margin: 0;
-}
-@font-face{
-  font-family: 'Esteban';
-  src: url('./fonts/Esteban-Regular.ttf');
-  font-weight: normal;
-  font-style: normal;
+@font-face {
+    font-family: "NeuePlak";
+    src: url("./fonts/NeuePlakText-Regular.ttf");
+    font-weight: 400; /* Normal weight */
 }
 
-:root{
-  --Esteban: 'Esteban', sans-serif; 
-  --Plum: #824C71;
-  --Mint-Green: #8FD694;
-  --Teal: #366B69;
-  --Peachy: #FFB4A2;
-  --Accent-Green: #B6D094;
-  --Light-Mint-Grey: #ECF6EB;
-  --Med-Mint-Grey: #CADBC8;
-  --Dark-Mint-Grey: #98A697;
-  --Font-Size: clamp(1rem, 0.4rem + 0.8svw, 1.2rem);
+@font-face {
+    font-family: "NeuePlak";
+    src: url("./fonts/NeuePlak-Bold.ttf");
+    font-weight: 700; /* Bold weight */
 }
 
-*, *::before, *::after{
-  box-sizing: border-box;
+@font-face {
+    font-family: "NeuePlak";
+    src: url("./fonts/NeuePlak-ExtraBlack.ttf");
+    font-weight: 900; /* Extra Black weight */
 }
 
-/* @layer global, layout, modules, utilities;  */
+@font-face {
+    font-family: "NeuePlak";
+    src: url("./fonts/NeuePlak-Light.ttf");
+    font-weight: 300; /* Light weight */
+}
 
-@layer global{
-  *, *::before, *::after{
-      box-sizing: border-box;
-  }
-  body{
-      padding: 0;
-      margin: 0;
-  }
-  *{
-      color: var(--Teal);
-  }
-  h1{
-      font: 400 normal 60px/normal var(--Esteban), sans-serif;
-  }
-  h2{
-      font: 400 normal 48px/normal 'Unna', sans-serif;
-  }
-  h3{
-      font: italic 400 normal 36px/normal 'Unna', sans-serif;
-  }
-  h4{
-      font: 400 normal 24px/normal 'Unna', sans-serif;
-  }
-  p{
-      font: 400 normal var(--Font-Size)/normal var(--Esteban), sans-serif;
-  }
-  a:link{
-      color: var(--Plum);
-      text-decoration: underline;
-      &:hover{
-          text-decoration: none;
-      }
-  }
-  a:visited{
-      color: var(--Teal);
-  }
+@font-face {
+    font-family: "NeuePlak";
+    src: url("./fonts/NeuePlak-Regular.ttf");
+    font-weight: 400; /* Regular weight */
+}
+
+@font-face {
+    font-family: "NeuePlak";
+    src: url("./fonts/NeuePlak-SemiBold.ttf");
+    font-weight: 600; /* Semi-Bold weight */
+}
+
+@font-face {
+    font-family: "NeuePlak";
+    src: url("./fonts/NeuePlak-Thin.ttf");
+    font-weight: 100; /* Thin weight */
+}
+
+@font-face {
+    font-family: "NeuePlak";
+    src: url("./fonts/NeuePlak-UltraLight.ttf");
+    font-weight: 100; /* Ultra Light weight */
+}
+
+/* WebApp Variables */
+:root {
+    /* COLOR THEME */
+    --primary-green: #084534;
+    --accent-green: #5DB527;
+    --accent-teal: #0F8060;
+    --accent-pink: #FCA894;
+    --accent-yellow: #FCC737;
+    --Light-Mint-Grey: #ECF6EB;
+    --main-bg-white: #F0EDE4;
+    /* TYPOGRAPHY */
+    --reg-font: 400 16px "NeuePlak", sans-serif;
+    --semi-bold-font: 600 16px "NeuePlak", sans-serif;
+    --heading-one-font: 400 64px "NeuePlak", sans-serif;
+    --heading-two-font: 700 32px "NeuePlak", sans-serif;
+    --heading-three-font: 400 16px "NeuePlak", sans-serif;
+    --Default-FontSz: clamp(1rem, 0.4rem + 0.8svw, 1.2rem);
+}
+
+
+/* @layer global, layout;  */
+
+@layer Global {
+    /* @media (prefers-color-scheme: dark){
+        html{
+            background-color: #62B92B;
+        }
+    }
+    @media (prefers-color-scheme: light) {
+        html{
+            background-color: yellow;
+        }
+    } */
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    * {
+        margin: 0;
+    }
+
+    html,
+    body {
+        height: 100%;
+    }
+
+    /*
+        Typographic tweaks!
+        4. Add accessible line-height
+        5. Improve text rendering
+      */
+    body {
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+        font: var(--reg-font);
+    }
+
+    /*
+        6. Improve media defaults
+      */
+    img,
+    picture,
+    video,
+    canvas
+    {
+        display: block;
+        max-width: 100%;
+    }
+
+    /*
+        7. Remove built-in form typography styles
+      */
+    input,
+    button,
+    textarea,
+    select {
+        font: inherit;
+    }
+
+    /*
+        8. Avoid text overflows
+      */
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        overflow-wrap: break-word;
+        text-wrap: pretty;
+        color: #000;
+    }
+
+    /*
+        9. Create a root stacking context
+      */
+    #root,
+    #__next {
+        isolation: isolate;
+    }
+}
+@layer layout{
+    .centered-margin{
+        margin: 0 auto;
+    }
+    .landscape-flex-2{
+        display: flex;
+        
+    }
 }

@@ -29,29 +29,26 @@ module.exports.registerResearcher = async(req, res) =>{
     }
 }
 // Authenticate/Validate on Login
-// Steps: module export, ( find, if not found(err res)else try(compare pw, user token, response)), catch error response
-
-module.exports.loginResearcher = async (req, res) =>{
-    const foundResearcher = await Researcher.findOne({email:req.body.email});
+// Steps: Using mongoose schema, finding research object and confirming password match,after which a jwt is generated and binary image data is stringified and passed along with the remaining researcher data via cookies for dynamic, authenticated, personalized UI
+module.exports.authenticateResearcher = async (req, res) =>{
+    const foundResearcher = Researcher.findOne({email:req.body.email})
     if(!foundResearcher){
-        res.status(400).json({errMessage: 'Invalid Email or Password'})
-    }else{
-        try{
-            const pwConfirm = await bcrypt.compare(req.body.password, foundResearcher.password)
-            if(!pwConfirm){
-                return res.status(400).json({errMessage: 'Invalid Email or Password'})
-            }
-            const userToken = jwt.sign({_id: foundResearcher._id, email: foundResearcher.email}, KEY);
-            let researcherObj = foundResearcher.toObject();
-            if(researcherObj.profileImage && researcherObj.profileImage.data){
-                researcherObj.profileImage = Buffer.from(researcherObj.profileImage.data).toString('base64');
-            }
-            return res.status(201).cookie('userToken', userToken,{httpOnly:true}).json({successMessage:'Logged Researcher in',
-                researcherData: researcherObj
-            })
-        }catch(err){
-            res.status(400).json({err: 'Invalid Email or Password'})
+        return res.status(400).json({err: 'Invalid email or password.'})
+        
+    }
+    try{
+        const hashedPWMatch = await bcrypt.compare(req.body.password, foundResearcher.password)
+        if(!hashedPWMatch){
+            return res.status(400).json({err: 'Invalid email or password.'})
+        }else if(hashedPWMatch){
+            const userToken = jwt.sign({_id:foundResearcher._id, email: foundResearcher.email},KEY);
+            const researcherObj = foundResearcher.toObject();
+            researcherObj.profileImage && researcherObj.profileImage.data?
+            researcherObj.profileImage = Buffer.from(foundResearcher.profileImage.data).toString('base64'):''
+            return res.status(201).cookie('userToken', userToken, {httpOnly:true}).json({successMessage: 'Researcher Found & Authenticated', researcherObj: researcherObj})
         }
+    }catch(err){
+        res.status(400).json({err: 'Invalid email or password.'})
     }
 }
 
