@@ -7,7 +7,7 @@ const KEY = process.env.APP_KEY
     Using the mongoose schema, controller creates a new researcher document, generates a usertoken authenticate and authorize user, and passes json web token and a user objet with a stringified buffer data, so that client can dynamically build personalized UI.
 */
 module.exports.registerResearcher = async(req, res) =>{
-    const {firstName, lastName, userName, email, password, discipline, researcherStatus} = req.body
+    const {firstName, lastName, userName, email, password,title, bio, discipline, researcherStatus} = req.body
     try{
         const newResearcher = await Researcher.create({
             firstName,
@@ -15,13 +15,16 @@ module.exports.registerResearcher = async(req, res) =>{
             userName,
             email,
             password,
+            title,
+            bio,
             discipline: JSON.parse(discipline),
             researcherStatus: JSON.parse(researcherStatus),
             profileImage: req.file.buffer})
             const userToken = jwt.sign({_id: newResearcher._id, email: newResearcher.email}, KEY);
             let researchObj = newResearcher.toObject();
-            if(researchObj.profileImage && researchObj.profileImage.data){
+            if(researchObj.profileImage && researchObj.profileImage.data && researchObj.password){
                 researchObj.profileImage = Buffer.from(newResearcher.profileImage.data).toString('base64');
+                delete researchObj.password;
             }
             return res.status(201).cookie('userToken', userToken, {httpOnly:true}).json({successMessage:"Researcher successfully created and registered", researcherData: researchObj})
     }catch(err){
