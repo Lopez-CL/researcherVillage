@@ -61,7 +61,7 @@
     --semi-bold-font: 600 16px "NeuePlak", sans-serif;
     --heading-one-font: 400 64px "NeuePlak", sans-serif;
     --heading-two-font: 700 32px "NeuePlak", sans-serif;
-    --heading-three-font: 400 16px "NeuePlak", sans-serif;
+    --heading-three-font: 400 24px "NeuePlak", sans-serif;
     --Default-FontSz: clamp(1rem, 0.4rem + 0.8svw, 1.2rem);
 }
 
@@ -140,9 +140,28 @@
     h6 {
         overflow-wrap: break-word;
         text-wrap: pretty;
-        color: #000;
+        color: var(--primary-green);
+        font-family:"NeuePlak", sans-serif;
     }
 
+    h1{
+        font: var(--heading-one-font, 400 64px "NeuePlak", sans-serif);
+    }
+    h2{
+        font: var(--heading-two-font);
+    }
+    h3{
+        font: var(--heading-three-font);
+    }
+    p, a{
+        font: var(--reg-font);
+        color: var(--primary-green, #084534);
+        font-size: var(--Default-FontSz);
+    }
+    a:link{
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
     /*
         9. Create a root stacking context
       */
@@ -156,7 +175,11 @@
         margin: 0 auto;
     }
     .landscape-flex-2{
+        padding-inline: 2rem;
         display: flex;
+    }
+    .stack > *+*{
         
+            margin-block-end: 1rem;
     }
 }

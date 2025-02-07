@@ -6,38 +6,120 @@
     --accent-pink: #FCA894;
     --accent-yellow: #FCC737;
     --primary-sand: #F0EDE4;
+    --text-input-default: solid 1px #084534;
     --reg-font: "NeuePlak", 400, sans-serif;
     --semi-bold-font: "NeuePlak", 600, sans-serif;
     --reg-font: 400 16px "NeuePlak", sans-serif;
     --semi-bold-font: 600 16px "NeuePlak", sans-serif;
     --heading-one-font: 400 64px "NeuePlak", sans-serif;
     --heading-two-font: 700 32px "NeuePlak", sans-serif;
-    --heading-three-font: 400 16px "NeuePlak", sans-serif;
+    --heading-three-font: 400 24px "NeuePlak", sans-serif;
     --Default-FontSz: clamp(1rem, 0.4rem + 0.8svw, 1.2rem);
 
 }
 
 @layer modules{
     .button{
-        border: 1px solid var(--primary-green);
-        background-color: var(--primary-green);
+        /* display: block;
+        width: fit-content; */
+        border: 1px solid var(--primary-green, #084534);
+        background-color: var(--primary-green, #084534);
         font: var(--semi-bold-font);
         cursor: pointer;
         color: #fff;
         padding: 12px 26px;
         border-radius: 36px;
-        
+        text-decoration: none;
         &:hover{
             background-color: transparent;
-            color: var(--primary-green);
+            color: var(--primary-green, #084534);
         }
     }
     .button--transparent{
         background-color: transparent;
-        color: var(--primary-green);
+        color: var(--primary-green, #084534);
         &:hover{
-            background-color: var(--primary-green);
+            background-color: var(--primary-green, #084534);
             color: #fff;
+        }
+    }
+    .input{
+        border: var(--text-input-default);
+        /* width: 50%; */
+        height: 3.25rem;
+        padding-inline-start: 1rem;
+        color: var(--primary-green, #084534);
+        border-radius: 4px;
+        &::placeholder{
+            color: var(--primary-green, #084534);
+        }
+    }
+    .nav-bar{
+        padding: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font: var(--heading-three-font);
+        p, a{
+            font: inherit;
+            color: inherit;
+            text-decoration: none;
+        }
+        .nav-bar__logo-header{
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        &.guest{
+            background-color: #fff;
+            color: var(--primary-green, #084534);
+        }
+    }
+    .landing-page{
+        margin-block-start: 5rem;
+        h1{
+            margin-block-end:  2rem;
+        }
+        section{
+            flex: 0 1 auto;
+        }
+        svg{
+            flex: 0 1 50%;
+        }
+        .button{
+            display: block;
+            max-width: 275px;
+            min-width: fit-content;
+            text-align: center;
+        }
+    }
+    .login-page{
+        justify-content: space-evenly;
+        section{
+            flex: 0 1 50%;
+            h1{
+                font: var(--heading-two-font);
+                margin-block-end: 2rem;
+            }
+        }
+        .login-page__login-form{
+            > div {
+                display: flex;
+                gap: 3rem;
+                margin-block-end: 2rem;
+            }
+            input{
+                flex: 0 1 45%;
+            }
+            button{
+                max-width: 155px;
+            }
+            a{
+                display: block;
+            }
+        }
+        .community-invite{
+            margin-block-start: 3rem;
         }
     }
 }

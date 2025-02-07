@@ -1,22 +1,24 @@
 import './App.css'
+import LoginForm from './components/LoginForm';
 import { BrowserRouter, Routes,Route } from 'react-router-dom';
-import * as Icons from './icons';
-import Button from './components/Button';
+import NavBar from './views/NavBar';
+import Landing from './components/Landing';
+import Login from './components/Login';
 const App: React.FC = () => {
-  const alertMe = () =>{
-    alert("I've been clicked!");
-  }
   return (
     <>
-      <h1>Researcher Village Coming Soon </h1>
-      <Button label="Click Me!" isDefaultGreen ={false} eventFunc={alertMe}/>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' /> 
-        </Routes>
-      </BrowserRouter>
+      <NavBar/>
+      <main>
+        <BrowserRouter>
+          <Routes>
+            <Route path='/' element={<Landing/>} />
+            <Route path='/login' element={<Login/>} />
+          </Routes>
+        </BrowserRouter>
+      </main>
+      
     </>
   )
 }
 
-export default App
+export default App;

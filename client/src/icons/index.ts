@@ -5,3 +5,4 @@ export {default as LandingFlower} from './LandingFlower';
 export {default as LoginFlower} from './LoginFlower';
 export {default as RVLogoGreen} from './RVLogoGreen';
 export {default as Share} from './Share';
+export {default as RVLogoWhite} from './RVLogoWhite';
