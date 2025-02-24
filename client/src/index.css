@@ -169,6 +169,13 @@
     #__next {
         isolation: isolate;
     }
+    #skip-to-main{
+        position: absolute;
+        left: -300px;
+        &:focus{
+            left: 0;
+        }
+    }
 }
 @layer layout{
     .centered-margin{

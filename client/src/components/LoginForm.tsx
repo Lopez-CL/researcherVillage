@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Button from './Button';
-import useStringInput from '../Hooks/InputChange';
+import useStringInput from '../Hooks/useTextInput';
 import { Link } from 'react-router-dom';
 interface LoginData {
     emailOrUsername: string,

@@ -7,7 +7,7 @@ const KEY = process.env.APP_KEY
     Using the mongoose schema, controller creates a new researcher document, generates a usertoken authenticate and authorize user, and passes json web token and a user objet with a stringified buffer data, so that client can dynamically build personalized UI.
 */
 module.exports.registerResearcher = async(req, res) =>{
-    const {firstName, lastName, userName, email, password,title, bio, discipline, researcherStatus} = req.body
+    const {firstName, lastName, userName, email, password, college, major, title, bio, discipline, researcherStatus} = req.body
     try{
         const newResearcher = await Researcher.create({
             firstName,
@@ -15,6 +15,8 @@ module.exports.registerResearcher = async(req, res) =>{
             userName,
             email,
             password,
+            college,
+            major,
             title,
             bio,
             discipline: JSON.parse(discipline),
@@ -46,8 +48,11 @@ module.exports.authenticateResearcher = async (req, res) =>{
         }else if(hashedPWMatch){
             const userToken = jwt.sign({_id:foundResearcher._id, email: foundResearcher.email},KEY);
             const researcherObj = foundResearcher.toObject();
-            researcherObj.profileImage && researcherObj.profileImage.data?
-            researcherObj.profileImage = Buffer.from(foundResearcher.profileImage.data).toString('base64'):''
+            if(researcherObj.profileImage && researcherObj.profileImage.data)
+            {researcherObj.profileImage = Buffer.from(foundResearcher.profileImage.data).toString('base64')
+                delete researcherObj.password
+
+            }
             return res.status(201).cookie('userToken', userToken, {httpOnly:true}).json({successMessage: 'Researcher Found & Authenticated', researcherObj: researcherObj})
         }
     }catch(err){

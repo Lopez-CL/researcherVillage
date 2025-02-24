@@ -28,6 +28,12 @@ const ResearcherSchema = mongoose.Schema({
         required: [true,"Please provide a password"],
         minlength: [8, 'your password must be 8 characters or longer'],
     },
+    college:{
+        type: String
+    },
+    major:{
+        type: String
+    },
     title:{
         type: String
     },

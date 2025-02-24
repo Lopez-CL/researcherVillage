@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction} from 'react';
 
-const useStringInput = <T extends object>(
+const useTextInput = <T extends object>(
     state:T, 
     setState: Dispatch<SetStateAction<T>>) =>
 (e: React.ChangeEvent<HTMLInputElement>) =>{
@@ -10,4 +10,4 @@ const useStringInput = <T extends object>(
     })
 }
 
-export default useStringInput;
+export default useTextInput;
